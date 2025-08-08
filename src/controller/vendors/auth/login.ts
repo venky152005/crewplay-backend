@@ -24,11 +24,11 @@ export const Login = async (req: Request, res: Response): Promise<any> => {
             return res.status(401).json({ message: "Invalid password" });
         }
 
-        if(!process.env.JWT_SECRET) {   
+        if(!process.env.JWT_SECRET_VENDOR) {   
             return res.status(500).json({ message: "JWT secret is not defined" });
         }
 
-        const token = jwt.sign({ id: vendor._id }, process.env.JWT_SECRET!, { expiresIn: '15h' });
+        const token = jwt.sign({ id: vendor._id }, process.env.JWT_SECRET_VENDOR!, { expiresIn: '15h' });
 
         res.status(200).json({ message: "Login successful", vendor: { id: vendor._id, email: vendor.email } });
     } catch (error) {

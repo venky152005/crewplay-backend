@@ -26,11 +26,11 @@ export const login = async(req: Request, res: Response):Promise<any>=>{
             res.status(400).json({message:"Invalid Password"});
         }
 
-        if(!process.env.JWT_SECRET) {
+        if(!process.env.JWT_SECRET_ADMIN) {
             return res.status(500).json({ message: "JWT secret is not defined" });
         }
 
-        const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET!, { expiresIn: '15h' });
+        const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET_ADMIN!, { expiresIn: '15h' });
 
         res.status(200).json({ message: "Login successful", token, admin: { id: admin._id, email: admin.email }, success: true });
     } catch (error) {

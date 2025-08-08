@@ -12,12 +12,12 @@ export const adminMiddleware = async (req: AdminRequest, res: Response, next: Ne
         return res.status(401).json({ message: "Unauthorized" });
     }
 
-    if (!process.env.JWT_SECRET) {
+    if (!process.env.JWT_SECRET_ADMIN) {
         return res.status(500).json({ message: "Server configuration error" });
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_ADMIN!) as { id: string };
         req.user = decoded;
         next();
     } catch (error) {
