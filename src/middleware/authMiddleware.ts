@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-interface AuthenticatedRequest extends Request {
+export interface AuthenticatedRequest extends Request {
     user?: any; 
 }
 
-export const authmiddleware = async( req: AuthenticatedRequest, res: Response, next: NextFunction)=>{
+export const authmiddleware = async( req: AuthenticatedRequest, res: Response, next: NextFunction):Promise<any>=>{
     const token = req.headers.authorization?.split(" ")[1];
 
     if(!token) return res.status(401).json({ message: "Unauthorized" });

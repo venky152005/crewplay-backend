@@ -30,7 +30,7 @@ export const Login = async (req: Request, res: Response): Promise<any> => {
 
         const token = jwt.sign({ id: vendor._id }, process.env.JWT_SECRET_VENDOR!, { expiresIn: '15h' });
 
-        res.status(200).json({ message: "Login successful", vendor: { id: vendor._id, email: vendor.email } });
+        res.status(200).json({ message: "Login successful", vendor: { id: vendor._id, email: vendor.email }, token });
     } catch (error) {
         res.status(500).json({ message: "Internal server error", error });
     }

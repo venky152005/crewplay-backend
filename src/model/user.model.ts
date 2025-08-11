@@ -1,22 +1,22 @@
 import mongoose from "mongoose";
 
 export interface IUser extends mongoose.Document{
-    FirstName: string;
-    LastName: string;
-    Email: string;
-    Password: string;
-    Otp: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    otp: string;
     isVerified: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
 
 const user = new mongoose.Schema<IUser>({
-    FirstName: { type: String },
-    LastName: { type: String },
-    Email: { type: String },
-    Password: { type: String },
-    Otp: { type: String },
+    firstname: { type: String },
+    lastname: { type: String },
+    email: { type: String },
+    password: { type: String },
+    otp: { type: String },
     isVerified: { type: Boolean },
     createdAt: { type: Date },
     updatedAt: { type: Date },

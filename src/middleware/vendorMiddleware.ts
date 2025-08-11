@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-interface VendorRequest extends Request {    
+export interface VendorRequest extends Request {    
     user?: any; 
 }
 
-export const vendorMiddleware = async (req: VendorRequest, res: Response, next: NextFunction) => {
+export const vendorMiddleware = async (req: VendorRequest, res: Response, next: NextFunction):Promise<any> => {
     const token = req.headers.authorization?.split(" ")[1];
 
     if (!token) {

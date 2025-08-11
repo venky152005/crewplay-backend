@@ -5,33 +5,33 @@ import { sendEmail } from "../email";
 
 export const Signup = async(req: Request, res: Response)=>{
     try {
-        const { FirstName, LastName, Email, Password } = req.body;
+        const { firstname, lastname, email, password } = req.body;
 
-        if(!FirstName){
+        if(!firstname){
             res.status(401).json({ message: "firstname is required"});
         }
 
-        if(!LastName){
+        if(!lastname){
             res.status(401).json({ message: "lastname is required"});
         }
 
-        if(!Email){
+        if(!email){
             res.status(401).json({ message: "email is required"});
         }
 
-        if(!Password){
+        if(!password){
             res.status(401).json({ message: "password is required"});
         }
 
-        const existingUser = await User.findOne({ Email });
+        const existingUser = await User.findOne({ email });
         if(existingUser){
             res.status(500).json({ message: "User already exist"})
         }
 
-        const hashedPassword = await bcrypt.hash(Password, 10);
-        const user = await User.create({ FirstName, LastName, Email, Password: hashedPassword });
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await User.create({ firstname, lastname, email, password: hashedPassword });
 
-        await sendEmail(Email, `${FirstName} ${LastName} Successfully Registered`,`<!DOCTYPE html>
+        await sendEmail(email, `${firstname} ${lastname} Successfully Registered`,`<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -106,7 +106,7 @@ export const Signup = async(req: Request, res: Response)=>{
       </div>
 
       <div class="message">
-        <p>Hi <strong>${FirstName} ${LastName}</strong>,</p>
+        <p>Hi <strong>${firstname} ${lastname}</strong>,</p>
         <p>
           🎉 Your registration was successful! We're thrilled to have you join the CrewPlay community.
         </p>
