@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-    origin: '*', 
+    origin: ['*','http://localhost:3000', 'https://crewplay.vercel.app'], 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 }));

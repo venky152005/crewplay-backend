@@ -10,8 +10,8 @@ const vendor = Router()
 vendor.post("/login",Login);
 vendor.post("/signup",Signup);
 vendor.get("/profile", vendorMiddleware, getVendorProfile);
-vendor.put("/profile-update", vendorMiddleware, updateVendorProfile);
-vendor.post("/forgot-password",forgotPassword);
-vendor.post("/reset-password",resetPassword);
+vendor.put("/profile/update", vendorMiddleware, updateVendorProfile);
+vendor.post("/forgot/password",forgotPassword);
+vendor.post("/reset/password",resetPassword);
 
 export default vendor;

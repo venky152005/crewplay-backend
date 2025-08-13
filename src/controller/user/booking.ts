@@ -72,6 +72,12 @@ export const bookings = async (req: AuthenticatedRequest, res: Response):Promise
 
         await newBooking.save();
 
+        const formattedDate = new Date(newBooking.date).toLocaleDateString("en-GB", {
+  day: "2-digit",
+  month: "short",
+  year: "numeric"
+});
+
         await sendEmail(email,"Successfully turf booked",`<!doctype html>
 <html lang="en">
 <head>
@@ -140,7 +146,7 @@ export const bookings = async (req: AuthenticatedRequest, res: Response):Promise
           <div class="row">
             <div>
               <div class="label">Date</div>
-              <div class="value">${newBooking.date}</div>
+              <div class="value">${formattedDate}</div>
             </div>
             <div>
               <div class="label">Time</div>
