@@ -10,6 +10,7 @@ export interface IBooking extends mongoose.Document {
   name: string;
   email: string;
   phone: string;
+  amount: string;
   specialRequests: string;
 }
 
@@ -23,6 +24,7 @@ const bookingSchema = new mongoose.Schema<IBooking>({
   name: { type: String },
   email: { type: String },
   phone: { type: String },
+  amount: { type: String },
   specialRequests: { type: String, default: '' }
 }, {
   timestamps: true

@@ -2,6 +2,12 @@ import { Request, Response } from "express";
 import Booking from "../../model/booking.model";
 import { AuthenticatedRequest } from "../../middleware/authMiddleware";
 import { sendEmail } from "./email";
+// import Razorpay from "razorpay";
+
+// const razorpay = new Razorpay({
+//     key_id: process.env.RAZORPAY_KEY_ID,
+//     key_secret: process.env.RAZORPAY_KEY_SECRET
+// });
 
 export const bookings = async (req: AuthenticatedRequest, res: Response):Promise<any> => {
     try {
@@ -43,6 +49,12 @@ export const bookings = async (req: AuthenticatedRequest, res: Response):Promise
         if(!phone) {
             return res.status(400).json({ message: "Phone number is required", success: false });
         }
+
+        // const option = await razorpay.orders.create({
+        //   amount: amount * 100,
+        //   currency: "INR",
+        //   receipt: `receipt_${Date.now()}`
+        // });
 
         const bookingExists = await Booking.findOne({
             userId,

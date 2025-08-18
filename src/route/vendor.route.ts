@@ -4,6 +4,10 @@ import { Signup } from "../controller/vendors/auth/signup";
 import { forgotPassword, resetPassword } from "../controller/vendors/auth/forgot";
 import { vendorMiddleware } from "../middleware/vendorMiddleware";
 import { getVendorProfile, updateVendorProfile } from "../controller/vendors/profile";
+import multer from "multer";
+import { vendorDetails } from "../controller/vendors/details";
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 const vendor = Router()
 
@@ -13,5 +17,6 @@ vendor.get("/profile", vendorMiddleware, getVendorProfile);
 vendor.put("/profile/update", vendorMiddleware, updateVendorProfile);
 vendor.post("/forgot/password",forgotPassword);
 vendor.post("/reset/password",resetPassword);
+vendor.post("/details", vendorMiddleware, upload.array("turfimage"), vendorDetails);
 
 export default vendor;
