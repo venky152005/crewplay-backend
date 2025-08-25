@@ -208,7 +208,7 @@ export const bookings = async (req: AuthenticatedRequest, res: Response):Promise
 </body>
 </html>
 `)
-        res.status(201).json({newBooking, message: "Booking created successfully", success: true});
+        res.status(200).json({newBooking, message: "Booking created successfully", success: true});
     } catch (error: any) {
         res.status(500).json({ error: error.message });
     }
@@ -217,20 +217,14 @@ export const bookings = async (req: AuthenticatedRequest, res: Response):Promise
 export const getbookings = async(req: AuthenticatedRequest, res: Response):Promise<any>=>{
   try {
     const userId = req.user.id;
-    console.log(userId)
-
-    if(!userId){
-        return res.status(400).json({message:"User is not found"});
-    }
-
-    const bookings = await Booking.find({userId});
+    const bookings = userId ? await Booking.find({userId}) : await Booking.find();
 
     if(!bookings){
         return res.status(401).json({message:"Records not found"});
     }
 
     res.status(200).json({ bookings, success: true });
-  } catch (error) {
-    res.status(500).json({message:"An Error Occured",error});
+  } catch (error: any) {
+    res.status(500).json({message:"An Error Occured: "+error.message});
   }
 }

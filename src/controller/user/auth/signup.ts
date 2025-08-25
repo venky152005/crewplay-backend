@@ -5,7 +5,7 @@ import { sendEmail } from "../email";
 
 export const Signup = async(req: Request, res: Response)=>{
     try {
-        const { firstname, lastname, email, password } = req.body;
+        const { firstname, lastname, gender, email, password } = req.body;
 
         if(!firstname){
             res.status(401).json({ message: "firstname is required"});
@@ -13,6 +13,10 @@ export const Signup = async(req: Request, res: Response)=>{
 
         if(!lastname){
             res.status(401).json({ message: "lastname is required"});
+        }
+
+        if(!gender){
+            res.status(401).json({ message: "gender is required"});
         }
 
         if(!email){
@@ -29,7 +33,7 @@ export const Signup = async(req: Request, res: Response)=>{
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ firstname, lastname, email, password: hashedPassword });
+        const user = await User.create({ firstname, lastname, gender, email, password: hashedPassword });
 
         await sendEmail(email, `${firstname} ${lastname} Successfully Registered`,`<!DOCTYPE html>
 <html lang="en">

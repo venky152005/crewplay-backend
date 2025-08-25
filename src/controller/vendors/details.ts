@@ -20,11 +20,19 @@ const s3 = new S3Client({
 
 export const vendorDetails = async(req: Request, res: Response):Promise<any> => {
     try {
-        const { vendorid, turfname, location, price, description, slots, amenities } = req.body;
+        const { vendorid, turfname, sport, location, price, description, slots, amenities, numberofplayer } = req.body;
         const turfimage = req.files as Express.Multer.File[];
 
         if(!vendorid) {
             return res.status(400).json({ message: "Vendor ID is required" });
+        }
+
+        if(!turfname) {
+            return res.status(400).json({ message: "Turf name is required" });
+        }
+
+        if(!sport || sport.length === 0) {
+            return res.status(400).json({ message: "At least one sport is required" });
         }
 
         if(!turfimage) {
@@ -49,6 +57,10 @@ export const vendorDetails = async(req: Request, res: Response):Promise<any> => 
 
         if(!amenities || amenities.length === 0) {
             return res.status(400).json({ message: "At least one amenity is required" });
+        }
+
+        if(!numberofplayer){
+            return res.status(400).json({ message: "Number of players is required" });
         }
 
         const existingDetails = await Details.findOne({ vendorid, turfname, location });
@@ -91,12 +103,14 @@ export const vendorDetails = async(req: Request, res: Response):Promise<any> => 
         const newDetails = new Details({
             vendorid,
             turfname,
+            sport,
             turfimage: turfimages, 
             location,
             price,
             description,
             slots,
-            amenities
+            amenities,
+            numberofplayer
         });
 
         await newDetails.save();

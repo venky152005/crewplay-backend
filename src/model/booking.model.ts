@@ -12,6 +12,8 @@ export interface IBooking extends mongoose.Document {
   phone: string;
   amount: string;
   specialRequests: string;
+  isApproved: boolean;
+  isDeclined: boolean;
 }
 
 const bookingSchema = new mongoose.Schema<IBooking>({
@@ -25,7 +27,9 @@ const bookingSchema = new mongoose.Schema<IBooking>({
   email: { type: String },
   phone: { type: String },
   amount: { type: String },
-  specialRequests: { type: String, default: '' }
+  specialRequests: { type: String, default: '' },
+  isApproved: { type: Boolean, default: false },
+  isDeclined: { type: Boolean, default: false }
 }, {
   timestamps: true
 });
